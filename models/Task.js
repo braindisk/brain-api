@@ -15,5 +15,9 @@ const taskSchema = new mongoose.Schema({
   due: { type: Date },
 });
 
+const Task = mongoose.model('Task', taskSchema);
+
+export default Task;
+
 // todo - turn on extension for escaping comma
 // type change - created_by, project

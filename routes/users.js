@@ -3,6 +3,8 @@ import User from '../models/User';
 
 const router = express.Router();
 
+const noUserFound = (res) => res.status(404).json({ message: 'no user found' });
+
 router.get('/', async (req, res) => {
   const users = await User.find();
   res.status(200).json({ users });
@@ -10,7 +12,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const user = await User.findById(req.params.id);
-  if (!user) return res.status(404).json({ message: 'no user found' });
+  if (!user) return noUserFound(res);
   res.status(200).json({ user });
 });
 
@@ -21,13 +23,13 @@ router.post('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  if (!user) return res.status(404).json({ message: 'no user found' });
+  if (!user) return noUserFound(res);
   res.status(200).json({ user });
 });
 
 router.delete('/:id', async (req, res) => {
   const user = await User.findByIdAndRemove(req.params.id);
-  if (!user) return res.status(404).json({ message: 'no user found' });
+  if (!user) return noUserFound(res);
   res.status(200).send({ user });
 });
 

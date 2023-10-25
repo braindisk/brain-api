@@ -18,5 +18,3 @@ const taskSchema = new mongoose.Schema({
 const Task = mongoose.model('Task', taskSchema);
 
 export default Task;
-
-// todo - turn on extension for escaping comma

@@ -1,12 +1,22 @@
 import mongoose from 'mongoose';
+import Joi from 'joi';
+import joiObjectid from 'joi-objectid';
+Joi.objectid = joiObjectid(Joi);
 
 const userSchema = new mongoose.Schema({
-  firstName: { type: String, require: true },
-  lastName: { type: String, require: true },
-  email: { type: String, require: true },
-  password: { type: String, require: true },
+  firstName: { type: String, require: true, min: 3, max: 20 },
+  lastName: { type: String, require: true, min: 3, max: 20 },
+  email: { type: String, require: true, min: 5, max: 50 },
+  password: { type: String, require: true, min: 6, max: 100 },
 });
 
-const User = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);
 
-export default User;
+const joiSchema = {
+  firstName: Joi.string().min(3).max(20).required(),
+  lastName: Joi.string().min(3).max(20).required(),
+  email: Joi.email().min(3).max(50).required(),
+  password: Joi.string().min(6).max(100).required(),
+};
+
+export { joiSchema };

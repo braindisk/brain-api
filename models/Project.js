@@ -1,11 +1,19 @@
 import mongoose from 'mongoose';
+import Joi from 'joi';
+import joiObjectid from 'joi-objectid';
+Joi.objectid = joiObjectid(Joi);
 
 const projectSchema = new mongoose.Schema({
   name: { type: String, require: true },
-  created_on: { type: Date, default: Date.now() },
-  created_by: { type: mongoose.Schema.Types.ObjectId(), ref: 'User' },
+  createdOn: { type: Date, default: Date.now() },
+  createdBy: { type: mongoose.Schema.Types.ObjectId(), ref: 'User' },
 });
 
-const Project = mongoose.model('Project', projectSchema);
+export default mongoose.model('Project', projectSchema);
 
-export default Project;
+const joiSchema = {
+  name: Joi.string().required(),
+  createdBy: Joi.objectid(),
+};
+
+export { joiSchema };

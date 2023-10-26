@@ -1,6 +1,11 @@
 import express from 'express';
 import login from './routes/login';
 import tasks from './routes/tasks';
+import checkEnvVariables from './utils/checkEnvVariables';
+import dbConnect from './utils/dbConnect';
+
+checkEnvVariables();
+dbConnect();
 
 const app = express();
 

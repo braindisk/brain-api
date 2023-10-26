@@ -17,5 +17,11 @@ app.use('/api/tasks', tasks);
 app.use('/api/users', users);
 app.use('/api/projects', projects);
 
-const port = 3000;
-app.listen(port, () => console.log(`server is running on port ${port}`));
+const server = Bun.serve({
+  port: 3000,
+  fetch(req) {
+    return new Response(app(req));
+  },
+});
+
+console.log(`http://localhost:${server.port}`);

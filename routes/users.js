@@ -1,5 +1,5 @@
 import express from 'express';
-import User, {joiSchema} from '../models/User';
+import User, { joiSchema } from '../models/User';
 import validate from '../middlewares/validate';
 
 const router = express.Router();
@@ -17,11 +17,13 @@ router.get('/:id', validate('id'), async (req, res) => {
 });
 
 router.post('/:id', validate(joiSchema), async (req, res) => {
+  req.body.password = await Bun.password.hash(req.body.password);
   const user = new User(req.body);
   await user.save();
 });
 
 router.put('/:id', validate('id'), validate(joiSchema), async (req, res) => {
+  req.body.password = await Bun.password.hash(req.body.password);
   const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
   if (!user) return noUserFound(res);
   res.status(200).json({ user });

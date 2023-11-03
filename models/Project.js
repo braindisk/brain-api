@@ -6,7 +6,7 @@ Joi.objectid = joiObjectid(Joi);
 const projectSchema = new mongoose.Schema({
   name: { type: String, require: true },
   createdOn: { type: Date, default: Date.now() },
-  createdBy: { type: mongoose.Schema.Types.ObjectId(), ref: 'User' },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 export default mongoose.model('Project', projectSchema);

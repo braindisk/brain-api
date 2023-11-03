@@ -6,6 +6,7 @@ import projects from './routes/projects';
 import checkEnvVariables from './utils/checkEnvVariables';
 import dbConnect from './utils/dbConnect';
 
+console.log('checking env variables');
 checkEnvVariables();
 dbConnect();
 
@@ -17,11 +18,13 @@ app.use('/api/tasks', tasks);
 app.use('/api/users', users);
 app.use('/api/projects', projects);
 
-const server = Bun.serve({
-  port: 3000,
-  fetch(req) {
-    return new Response(app(req));
-  },
-});
+const port = 3000;
+app.listen(port, () => console.log(`running on http://localhost:${port}`));
 
-console.log(`http://localhost:${server.port}`);
+// const server = Bun.serve({
+//   port: 3000,
+//   fetch(req) {
+//     return new Response(app(req));
+//   },
+// });
+// console.log(`http://localhost:${server.port}`);

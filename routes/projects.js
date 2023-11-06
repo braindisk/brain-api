@@ -1,8 +1,8 @@
-import express from 'express';
-import Project, {joiSchema} from '../models/Project';
+import { Router } from 'express';
+import Project, { joiSchema } from '../models/Project';
 import validate from '../middlewares/validate';
 
-const router = express.Router();
+const router = Router();
 const noProjectFound = (res) => res.status(404).json({ message: 'no project found' });
 
 router.get('/', async (req, res) => {

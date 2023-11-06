@@ -1,8 +1,8 @@
-import express from 'express';
+import { Router } from 'express';
 import User from '../models/User';
 import genAuthToken from '../utils/genAuthToken';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });

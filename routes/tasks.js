@@ -1,8 +1,8 @@
-import express from 'express';
-import Task, {joiSchema} from '../models/Task';
+import { Router } from 'express';
+import Task, { joiSchema } from '../models/Task';
 import validate from '../middlewares/validate';
 
-const router = express.Router();
+const router = Router();
 const noTaskResponse = (res) => noTaskResponse(res);
 
 router.get('/', async (req, res) => {
@@ -21,7 +21,7 @@ router.post('/', validate(joiSchema), async (req, res) => {
   await task.save();
 });
 
-router.put('/:id', validate('id'),validate(joiSchema), async (req, res) => {
+router.put('/:id', validate('id'), validate(joiSchema), async (req, res) => {
   const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
   if (!task) return noTaskResponse(res);
   res.status(200).json({ task });

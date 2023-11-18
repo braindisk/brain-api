@@ -4,7 +4,7 @@ export default function (user) {
   const payload = {
     _id: user._id,
     iat: Date.now(),
-    expiredIn: '24h',
+    expireIn: '24h',
   };
 
   const options = {

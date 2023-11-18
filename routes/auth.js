@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   user = user.toObject();
   res
     .status(200)
-    .header('braindisk-auth-token', token)
+    .header('brainlink-auth-token', token)
     .json(omit(user, ['password']));
 });
 

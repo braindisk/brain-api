@@ -4,10 +4,10 @@ import joiObjectid from 'joi-objectid';
 Joi.objectid = joiObjectid(Joi);
 
 const userSchema = new mongoose.Schema({
-  firstName: { type: String, require: true, min: 3, max: 20 },
-  lastName: { type: String, require: true, min: 3, max: 20 },
-  email: { type: String, require: true, min: 5, max: 50 },
-  password: { type: String, require: true, min: 6, max: 100 },
+  firstName: { type: String, required: true, min: 3, max: 20 },
+  lastName: { type: String, required: true, min: 3, max: 20 },
+  email: { type: String, required: true, min: 5, max: 50 },
+  password: { type: String, required: true, min: 6, max: 100 },
 });
 
 export default mongoose.model('User', userSchema);

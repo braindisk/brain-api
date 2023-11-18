@@ -4,7 +4,7 @@ import joiObjectid from 'joi-objectid';
 Joi.objectid = joiObjectid(Joi);
 
 const projectSchema = new mongoose.Schema({
-  name: { type: String, require: true },
+  name: { type: String, required: true },
   createdOn: { type: Date, default: Date.now() },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });

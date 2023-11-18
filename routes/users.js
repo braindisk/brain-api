@@ -1,25 +1,31 @@
 import { Router } from 'express';
 import User, { joiSchema } from '../models/User';
 import validate from '../middlewares/validate';
+import { omit } from 'lodash';
 
 const router = Router();
 const noUserFound = (res) => res.status(404).json({ message: 'no user found' });
 
 router.get('/', async (req, res) => {
   const users = await User.find();
-  res.status(200).json({ users });
+  res.status(200).json(users);
 });
 
 router.get('/:id', validate('id'), async (req, res) => {
-  const user = await User.findById(req.params.id);
+  let user = await User.findById(req.params.id);
   if (!user) return noUserFound(res);
-  res.status(200).json({ user });
+  user = user.toObject();
+  res.status(200).json(omit(user, ['password']));
 });
 
-router.post('/:id', validate(joiSchema), async (req, res) => {
+router.post('/', validate(joiSchema), async (req, res) => {
+  let user = await User.findOne({ email: req.body.email });
+  if (user) return res.status(409).json({ message: 'user already exists' });
   req.body.password = await Bun.password.hash(req.body.password);
-  const user = new User(req.body);
+  user = new User(req.body);
   await user.save();
+  user = user.toObject();
+  res.status(200).json(omit(user, ['password']));
 });
 
 router.put('/:id', validate('id'), validate(joiSchema), async (req, res) => {

@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 export default function (user) {
   const payload = {
     _id: user._id,
-    iat: new Date.getTime(),
+    iat: Date.now(),
+    expiredIn: '24h',
   };
 
   const options = {
-    subject: user,
-    expireIn: '24h',
+    subject: 'user',
     issuer: 'brain-api',
     audience: 'api-brain',
   };

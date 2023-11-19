@@ -4,15 +4,15 @@ import joiObjectid from 'joi-objectid';
 Joi.objectid = joiObjectid(Joi);
 
 const taskSchema = new mongoose.Schema({
-  title: { type: String, require: true },
+  title: { type: String, required: true },
   description: { type: String },
   status: { type: String, enum: ['not-started', 'on-going', 'done'], default: 'not-started' },
-  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', require: true },
+  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true },
   priority: { type: Number, enum: [1, 2, 3] },
   sessions: [{ start: Date, end: Date }],
   elapsedTime: { type: Date },
   totalTime: { type: Number },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   createdOn: { type: Date, default: Date.now() },
   startedOn: { type: Date },
   completedOn: { type: Date },
@@ -30,7 +30,6 @@ const joiSchema = {
   sessions: Joi.array().items(Joi.object({ start: Joi.date(), end: Joi.date() })),
   elapsedTime: Joi.date(),
   totalTime: Joi.date(),
-  createdBy: Joi.objectid().required(),
   startedOn: Joi.date(),
   completedOn: Joi.date(),
   due: Joi.date(),

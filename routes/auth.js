@@ -12,10 +12,8 @@ router.post('/', async (req, res) => {
   if (!match) return res.status(500).json({ message: 'Incorrect password' });
   const token = genAuthToken(user);
   user = user.toObject();
-  res
-    .status(200)
-    .header('brainlink-auth-token', token)
-    .json(omit(user, ['password']));
+  user.token = token;
+  res.status(200).json(omit(user, ['password', 'projects']));
 });
 
 export default router;

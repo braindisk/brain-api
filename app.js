@@ -3,15 +3,16 @@ import auth from './routes/auth';
 import tasks from './routes/tasks';
 import users from './routes/users';
 import projects from './routes/projects';
+import cors from 'cors';
 import checkEnvVariables from './utils/checkEnvVariables';
 import dbConnect from './utils/dbConnect';
 
-console.log('checking env variables');
 checkEnvVariables();
 dbConnect();
 
 const app = express();
 
+app.use(cors({ origin: 'http://localhost:3001', credentials: true, optionsSuccessStatus: 200 }));
 app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/api/tasks', tasks);

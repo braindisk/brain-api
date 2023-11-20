@@ -5,9 +5,9 @@ Joi.objectid = joiObjectid(Joi);
 
 const taskSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  description: { type: String },
+  description: { type: String, required: false },
   status: { type: String, enum: ['not-started', 'on-going', 'done'], default: 'not-started' },
-  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true },
+  project: { type: String },
   priority: { type: Number, enum: [1, 2, 3] },
   sessions: [{ start: Date, end: Date }],
   elapsedTime: { type: Date },
@@ -16,23 +16,23 @@ const taskSchema = new mongoose.Schema({
   createdOn: { type: Date, default: Date.now() },
   startedOn: { type: Date },
   completedOn: { type: Date },
-  due: { type: Date },
+  dueDate: { type: Date },
 });
 
 export default mongoose.model('Task', taskSchema);
 
 const joiSchema = {
   title: Joi.string().required(),
-  description: Joi.string().optional(),
+  description: Joi.string().allow(''),
   status: Joi.string().valid('not-started', 'on-going', 'done').optional(),
-  project: Joi.objectid().required(),
+  project: Joi.string(),
   priority: Joi.number().valid(1, 2, 3).optional(),
   sessions: Joi.array().items(Joi.object({ start: Joi.date(), end: Joi.date() })),
   elapsedTime: Joi.date(),
   totalTime: Joi.date(),
   startedOn: Joi.date(),
   completedOn: Joi.date(),
-  due: Joi.date(),
+  dueDate: Joi.date(),
 };
 
 export { joiSchema };

@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, required: true, min: 3, max: 20 },
   email: { type: String, required: true, min: 5, max: 50 },
   password: { type: String, required: true, min: 6, max: 100 },
-  projects: [projectSchema],
+  projects: [{ type: String }],
 });
 
 export default mongoose.model('User', userSchema);

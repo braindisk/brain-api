@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import Task, { joiSchema } from '../models/Task';
 import validate from '../middlewares/validate';
+import auth from '../middlewares/auth';
 
 const router = Router();
 const noTaskResponse = (res) => noTaskResponse(res);
@@ -16,7 +17,8 @@ router.get('/:id', validate('id'), async (req, res) => {
   res.status(200).json({ task });
 });
 
-router.post('/', validate(joiSchema), async (req, res) => {
+router.post('/', auth, validate(joiSchema), async (req, res) => {
+  req.body.createdBy = req.user._id;
   const task = new Task(req.body);
   await task.save();
 });

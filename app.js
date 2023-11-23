@@ -11,7 +11,7 @@ dbConnect();
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3001', credentials: true, optionsSuccessStatus: 200 }));
+app.use(cors({ origin: 'https://brainlink.netlify.app', credentials: true, optionsSuccessStatus: 200 }));
 app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/api/tasks', tasks);

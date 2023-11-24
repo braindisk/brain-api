@@ -9,7 +9,7 @@ export default function (req, res, next) {
 
     if (bits[0] === 'Bearer') {
       let token = bits[1];
-      const user = jwt.verify(token, Bun.env.JWT_PVT_KEY);
+      const user = jwt.verify(token, process.env.JWT_PVT_KEY);
       req.user = user;
       next();
     }

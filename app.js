@@ -1,10 +1,11 @@
+import 'dotenv/config';
 import express from 'express';
-import auth from './routes/auth';
-import tasks from './routes/tasks';
-import users from './routes/users';
+import auth from './routes/auth.js';
+import tasks from './routes/tasks.js';
+import users from './routes/users.js';
 import cors from 'cors';
-import checkEnvVariables from './utils/checkEnvVariables';
-import dbConnect from './utils/dbConnect';
+import checkEnvVariables from './utils/checkEnvVariables.js';
+import dbConnect from './utils/dbConnect.js';
 
 checkEnvVariables();
 dbConnect();
@@ -19,11 +20,3 @@ app.use('/api/users', users);
 
 const port = 3000;
 app.listen(port, () => console.log(`running on http://localhost:${port}`));
-
-// const server = Bun.serve({
-//   port: 3000,
-//   fetch(req) {
-//     return new Response(app(req));
-//   },
-// });
-// console.log(`http://localhost:${server.port}`);

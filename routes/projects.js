@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import Project, { joiSchema } from '../models/Project';
-import validate from '../middlewares/validate';
-import auth from '../middlewares/auth';
+// import Project, { joiSchema } from '../models/Project';
+import validate from '../middlewares/validate.js';
+import auth from '../middlewares/auth.js';
 
 const router = Router();
 const noProjectFound = (res) => res.status(404).json({ message: 'no project found' });

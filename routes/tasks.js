@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import Task, { joiSchema } from '../models/Task';
-import validate from '../middlewares/validate';
-import auth from '../middlewares/auth';
+import Task, { joiSchema } from '../models/Task.js';
+import validate from '../middlewares/validate.js';
+import auth from '../middlewares/auth.js';
 
 const router = Router();
 const noTaskResponse = (res) => noTaskResponse(res);

@@ -13,5 +13,5 @@ export default function (user) {
     audience: 'api-brain',
   };
 
-  return jwt.sign(payload, Bun.env.JWT_PVT_KEY, options);
+  return jwt.sign(payload, process.env.JWT_PVT_KEY, options);
 }

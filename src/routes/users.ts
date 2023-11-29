@@ -6,7 +6,7 @@ import auth from '../middlewares/auth.js';
 import bcrypt from 'bcrypt';
 
 const router = Router();
-const noUserFound = (res) => res.status(404).json({ message: 'no user found' });
+const noUserFound = (res: any) => res.status(404).json({ message: 'no user found' });
 
 router.get('/', auth, async (req, res) => {
   const users = await User.find();
@@ -17,7 +17,7 @@ router.get('/:id', auth, validate('id'), async (req, res) => {
   let user = await User.findById(req.params.id);
   if (!user) return noUserFound(res);
   user = user.toObject();
-  res.status(200).json(omit(user, ['password']));
+  res.status(200).json(_.omit(user, ['password']));
 });
 
 router.post('/', auth, validate(joiSchema), async (req, res) => {
@@ -31,7 +31,7 @@ router.post('/', auth, validate(joiSchema), async (req, res) => {
 });
 
 router.put('/:id', auth, validate('id'), validate(joiSchema), async (req, res) => {
-  req.body.password = await bcrypt.hash(req.body.password);
+  req.body.password = await bcrypt.hash(req.body.password, 10);
   const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
   if (!user) return noUserFound(res);
   res.status(200).json({ user });

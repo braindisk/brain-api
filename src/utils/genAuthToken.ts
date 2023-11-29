@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export default function (user) {
+export default function (user: any) {
   const payload = {
     _id: user._id,
     iat: Date.now(),
@@ -13,5 +13,6 @@ export default function (user) {
     audience: 'api-brain',
   };
 
-  return jwt.sign(payload, process.env.JWT_PVT_KEY, options);
+  const jwtPvtKey: string = process.env.JWT_PVT_KEY as string;
+  return jwt.sign(payload, jwtPvtKey, options);
 }

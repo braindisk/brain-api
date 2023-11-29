@@ -1,6 +1,7 @@
+import { string } from 'joi';
 import jwt from 'jsonwebtoken';
 
-export default function (req, res, next) {
+export default function (req: any, res: any, next: any) {
   try {
     const authorization = req.headers.authorization;
 
@@ -9,11 +10,12 @@ export default function (req, res, next) {
 
     if (bits[0] === 'Bearer') {
       let token = bits[1];
-      const user = jwt.verify(token, process.env.JWT_PVT_KEY);
+      const jwtPvtKey: string = process.env['JWT_PVT_KEY'] as string;
+      const user = jwt.verify(token, jwtPvtKey);
       req.user = user;
       next();
     }
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ message: error.data });
   }
 }

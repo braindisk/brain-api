@@ -4,7 +4,7 @@ import validate from '../middlewares/validate.js';
 import auth from '../middlewares/auth.js';
 
 const router = Router();
-const noTaskResponse = (res) => noTaskResponse(res);
+const noTaskResponse: any = (res: any) => noTaskResponse(res);
 
 router.get('/', auth, async (req, res) => {
   const tasks = await Task.find();

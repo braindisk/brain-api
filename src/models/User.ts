@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 import Joi from 'joi';
-import joiObjectid from 'joi-objectid';
-Joi.objectid = joiObjectid(Joi);
 
 const projectSchema = new mongoose.Schema({
   title: { type: String, min: 3, max: 20, required: true },
